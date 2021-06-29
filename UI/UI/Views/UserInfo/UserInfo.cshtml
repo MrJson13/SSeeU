@@ -1,0 +1,88 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>用户管理</title>
+    <script src="../../Scripts/jquery-3.4.1.js"></script>
+    <script src="../../Source/packages/layui/layui.js"></script>
+    <script src="../../Scripts/Project/UserInfo/userinfo.js"></script>
+    <link rel="stylesheet" href="../../Source/packages/layui/css/layui.css">
+</head>
+<body>
+    <div class="layui-fluid">
+        <div class="layui-row layui-col-space15">
+            <div class="layui-col-md16">
+                <div class="layui-card">
+                    <div class="layui-card-header">用户管理</div>
+                    <div class="layui-card-body">
+                        <blockquote class="layui-elem-quote layui-quote-nm">
+                            <button class="layui-btn" onclick="btn_addUser()">新增用户</button>
+                            <button class="layui-btn layui-btn-radius layui-btn-danger" onclick="btn_exportData()"><i class="layui-icon">&#xe601;</i>备份数据</button>
+                        </blockquote>
+                        <blockquote class="layui-elem-quote layui-quote-nm">
+                            <form class="layui-form">
+                                <div class="layui-form-item">
+                                    <div class="layui-inline">
+                                        <label class="layui-form-label">用户查询</label>
+                                        <div class="layui-input-block">
+                                            <input type="text" name="input" id="input" lay-verify="required" style="width:400px;" placeholder="请输入用户名或手机号，支持模糊查询" autocomplete="off" class="layui-input">
+                                        </div>
+                                    </div>
+                                    <button type="button" class="layui-btn layui-btn-normal" id="search">
+                                        <i class="layui-icon">&#xe615;</i>
+                                    </button>
+                                </div>
+                            </form>
+                        </blockquote>
+                        <blockquote class="layui-elem-quote layui-quote-nm">
+                            <!--用户的表格-->
+                            <table id="table_user" lay-filter="table_user"></table>
+                        </blockquote>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--新增用户的弹窗-->
+    <div style="padding-left:20px;padding-right:20px;padding-top:20px" id="div_addUser" hidden>
+        <form class="layui-form" id="UserForm">
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span style="color:red">*</span>姓名</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="u_name" id="u_name" lay-verify="required" placeholder="请输入姓名" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span style="color:red">*</span>电话</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="phone" id="phone" lay-verify="required" placeholder="请输入电话" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span style="color:red">*</span>账户余额</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="balance" id="balance" lay-verify="required" placeholder="请输入充值金额" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <!--以下属性不显示，便于更新账户文件-->
+            <div class="layui-form-item" hidden>
+                <textarea id="id" name="id"></textarea>
+            </div>
+        </form>
+    </div>
+
+
+    <!--修改表格的工具列-->
+    <script type="text/html" id="toolbar">
+        <a class='layui-btn layui-btn-xs' lay-event='edit'>编辑</a>
+        <a class='layui-btn layui-btn-normal layui-btn-xs' lay-event='recharge'>充值</a>
+        <a class='layui-btn layui-btn-warm layui-btn-xs' lay-event='settle'>结算</a>
+        <a class='layui-btn layui-btn-xs layui-btn-primary' lay-event='history'>查看记录</a>
+        {{# if(d.balance<0){ }}
+        <a class='layui-btn layui-btn-danger layui-btn-xs' lay-event='reset'>重置</a>
+        {{#  } }}
+    </script>
+</body>
+</html>
